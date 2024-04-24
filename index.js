@@ -1,7 +1,13 @@
-// Função QuickSort
+// Função para medir o tempo de execução 
+function tempo(func, arr) {
+    const startTime = performance.now();
+    func(arr);
+    const endTime = performance.now();
+    return endTime - startTime;
+}
+
 function quicksort(array) {
-    if (array.length === 0) return [];
-    if (array.length === 1) return array;
+    if (array.length <= 1) return array;
     
     var pivot = array[0];
     
@@ -12,9 +18,6 @@ function quicksort(array) {
     return quicksort(head).concat(equal).concat(quicksort(tail));
 }
 
-console.log(quicksort([5, 9, 2, 1, 8, 3, 7, 4, 6]));
-
-// Função MergeSort
 function mergeSort(arr) {
     if(arr.length < 2) {
         return arr
@@ -37,10 +40,6 @@ function merge(leftArr, rightArr) {
     return [...sortedArr, ...leftArr, ...rightArr]
 }
 
-const arr = [5, 9, 2, 1, 8, 3, 7, 4, 6]
-console.log(mergeSort(arr));
-
-// Função BubbleSort
 function bubble_sort(arr) {
     let tmp;
     for(let i = 0; i < arr.length; i++) {
@@ -55,8 +54,14 @@ function bubble_sort(arr) {
     return arr;
 }
 
-let arrayDesordenado = [5, 9, 2, 1, 8, 3, 7, 4, 6];
+const arr = [5, 9, 2, 1, 8, 3, 7, 4, 6];
 
-let arrayOrdenado = bubble_sort(arrayDesordenado);
+const quickSortTempo = tempo(quicksort, arr.slice());
 
-console.log(arrayOrdenado);
+const mergeSortTempo = tempo(mergeSort, arr.slice());
+
+const bubbleSortTempo = tempo(bubble_sort, arr.slice());
+
+console.log(`QuickSort: ${quickSortTempo} ms`);
+console.log(`MergeSort: ${mergeSortTempo} ms`);
+console.log(`BubbleSort: ${bubbleSortTempo} ms`);
